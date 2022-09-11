@@ -1,47 +1,47 @@
-const question = document.querySelector('#pergunta');
+const pergunta = document.querySelector('#pergunta');
 const choices = Array.from(document.querySelectorAll('.textus-arbitrium'));
 const progressText = document.querySelector('.progressText');
 const scoreText = document.querySelector('#score');
 const progressBarFull = document.querySelector('#progressBarFull');
 
-let currentQuestion = {};
-let acceptedAnser = true;
+let currentPergunta = {};
+let acceptedAnswer = true;
 let score = 0;
-let questionCounter = 0
-let availableQuestions = []
+let perguntaCounter = 0
+let availablePerguntas = []
 // setting questions to cycle through
-let questions = [
+let perguntas = [
     {
-        question: "This thing all things devours. Birds, beasts, trees, flowers. Gnaws Iron bites steal, and grinds hard stones to meal. What am I?",
+        pergunta: "This thing all things devours. Birds, beasts, trees, flowers. Gnaws Iron bites steal, and grinds hard stones to meal. What am I?",
         choice1: "light",
         choice2: "water",
         choice3: "time",
         choice4: "darkness",
-        answer: "time", 
+        answer: "3", 
     },
     {
-        question: "What does a 'Window' interface do?",
+        pergunta: "What does a 'Window' interface do?",
         choice1: "Allows us to look through it",
         choice2: "Look pretty",
         choice3: "Access the interior API",
         choice4: "Represents a window containing a DOM document",
-        answer: "Access the interior API"
+        answer: "3"
     },
     {
-        question: "What type of value is a true/false statement?",
+        pergunta: "What type of value is a true/false statement?",
         choice1: "string",
         choice2: "integer",
         choice3: "crime",
         choice4: "boolean",
-        answer: "boolean", 
+        answer: "4", 
     },
     {
-        question: "Ceci n'est pas une pipe?",
+        pergunta: "Ceci n'est pas une pipe?",
         choice1: "Oui",
         choice2: "Non",
         choice3: "Oui",
         choice4: "Non",
-        answer: "Non", 
+        answer: "2 || 4", 
     },
     
 ]
@@ -50,46 +50,46 @@ const TALLIED_SCORE = 100;
 const PERGUNTA_MAX = 4;
 
 commenceGame = () => {
-    questionCounter = 0;
+    perguntaCounter = 0;
     score = 0;
-    availableQuestions = [...questions];
+    availablePerguntas = [...perguntas];
     novaPergunta();
 }
 // accessing local storage
-getNewQuestion = () => {
-    if (availableQuestions.length === 0 || questionCounter > PERGUNTA_MAX) {
+getNewPergunta = () => {
+    if (availablePerguntas.length === 0 || perguntaCounter > PERGUNTA_MAX) {
         localStorage.setItem('mostRecentScore', score);
 
         return window.location.assign('/end.html')
     }
 
-    questionCounter++
-    progressText.innerText = `Question ${questionCounter} of ${PERGUNTA_MAX}`;
-    progressBarFull.style.width = `${(questionCounter/PERGUNTA_MAX) * 100}%`;
+    perguntaCounter++
+    progressText.innerText = `Pergunta ${perguntaCounter} of ${PERGUNTA_MAX}`;
+    progressBarFull.style.width = `${(perguntaCounter/PERGUNTA_MAX) * 100}%`;
 
-    const questionsIndex = Math.floor(Math.random() * availableQuestions.length);
-    currentQuestion = availableQuestions(questionsIndex) ;
-    question.innerText = currentQuestion.question;
+    const perguntasIndex = Math.floor(Math.random() * availablePerguntas.length);
+    currentQuestion = availablePerguntas(perguntasIndex) ;
+    pergunta.innerText = currentPergunta.pergunta;
 
     choices.forEach(choice => {
         const number = choice.dataset['number'];
-        choice.innerText = currentQuestion['choice' + number] ;
+        choice.innerText = currentPergunta['choice' + number] ;
     }) 
 
-    availableQuestions.splice(questionsIndex, 1);
+    availablePerguntas.splice(perguntasIndex, 1);
 
-    acceptedAnser = true
+    acceptedAnswer = true
 }
 
 choices.forEach(choice => {
     choice.addEventListener('click', e => {
-        if(!acceptedAnser) return;
+        if(!acceptedAnswer) return;
 
-        acceptedAnser = false;
+        acceptedAnswer = false;
         const selectedChoice = e.target;
         const selectedAnswer = selectedChoice.dataset('number');
 
-        let classToApply = selectedAnswer == currentQuestion.answer ? 'correct': 'incorrect'
+        let classToApply = selectedAnswer == currentPergunta.answer? 'correct': 'incorrect'
 
         if(classToApply === 'correct') {
             incrementScore(SCORE_POINTS);
@@ -99,7 +99,7 @@ choices.forEach(choice => {
 
         setTimeout(() => {
             selectedChoice.parentElement.classList.remove(classToApply);
-            getNewQuestion()
+            getNewPergunta()
             
         }, 1000)
     })
