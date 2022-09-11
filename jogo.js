@@ -1,5 +1,5 @@
-const pergunta = document.querySelector('#pergunta');
-const choices = Array.from(document.querySelectorAll('.textus-arbitrium'));
+const question = document.querySelector('#question');
+const choices = Array.from(document.querySelectorAll('.choice-text'));
 const progressText = document.querySelector('.progressText');
 const scoreText = document.querySelector('#score');
 const progressBarFull = document.querySelector('#progressBarFull');
@@ -17,7 +17,7 @@ let perguntas = [
         choice2: "water",
         choice3: "time",
         choice4: "darkness",
-        answer: "3", 
+        answer: 3, 
     },
     {
         pergunta: "What does a 'Window' interface do?",
@@ -25,7 +25,7 @@ let perguntas = [
         choice2: "Look pretty",
         choice3: "Access the interior API",
         choice4: "Represents a window containing a DOM document",
-        answer: "3"
+        answer: 3,
     },
     {
         pergunta: "What type of value is a true/false statement?",
@@ -33,7 +33,7 @@ let perguntas = [
         choice2: "integer",
         choice3: "crime",
         choice4: "boolean",
-        answer: "4", 
+        answer: 4, 
     },
     {
         pergunta: "Ceci n'est pas une pipe?",
@@ -41,7 +41,7 @@ let perguntas = [
         choice2: "Non",
         choice3: "Oui",
         choice4: "Non",
-        answer: "2 || 4", 
+        answer: 2 || 4, 
     },
     
 ]
@@ -53,22 +53,23 @@ commenceGame = () => {
     perguntaCounter = 0;
     score = 0;
     availablePerguntas = [...perguntas];
-    novaPergunta();
+    getNewPergunta();
 }
 // accessing local storage
 getNewPergunta = () => {
     if (availablePerguntas.length === 0 || perguntaCounter > PERGUNTA_MAX) {
         localStorage.setItem('mostRecentScore', score);
 
-        return window.location.assign('/end.html')
+        return window.location.assign('./end.html')
     }
 
     perguntaCounter++
-    progressText.innerText = `Pergunta ${perguntaCounter} of ${PERGUNTA_MAX}`;
+    // Problem below.
+    progressText.innerText = `Question ${perguntaCounter} of ${PERGUNTA_MAX}`;
     progressBarFull.style.width = `${(perguntaCounter/PERGUNTA_MAX) * 100}%`;
 
     const perguntasIndex = Math.floor(Math.random() * availablePerguntas.length);
-    currentQuestion = availablePerguntas(perguntasIndex) ;
+    currentPergunta = availablePerguntas(perguntasIndex) ;
     pergunta.innerText = currentPergunta.pergunta;
 
     choices.forEach(choice => {
