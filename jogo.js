@@ -25,7 +25,7 @@ let questions = [
         choice2: "Look pretty",
         choice3: "Access the interior API",
         choice4: "Represents a window containing a DOM document",
-        answer: "time", 
+        answer: "Access the interior API"
     },
     {
         question: "What type of value is a true/false statement?",

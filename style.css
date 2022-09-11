@@ -93,3 +93,28 @@ h2{
     width: 100%;
     display: flex;
 }
+
+input {
+    margin-bottom: 2rem;
+    width: 20rem;
+    padding: 1.5rem;
+    font-size:1.8rem ;
+    border: none;
+    box-shadow: 0 0.3rem 0.4rem 0 rgb(18, 93, 255);
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+#username {
+    margin-bottom: 3rem;
+    width: 100%;
+    outline: none;
+}
+
+#end-test {
+    font-size: 2.5rem;
+    color: #fff;
+    text-align: center;
+}
