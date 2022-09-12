@@ -95,7 +95,7 @@ choices.forEach(choice => {
             incrementScore(TALLIED_SCORE);
         }
 
-        selectedAnswer.parentElement.classList.add(classToApply);
+        selectedChoice.parentElement.classList.add(classToApply);
 
         setTimeout(() => {
             selectedChoice.parentElement.classList.remove(classToApply);
