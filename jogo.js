@@ -92,7 +92,7 @@ choices.forEach(choice => {
         let classToApply = selectedAnswer == currentQuestion.answer ? 'correct': 'incorrect'
 
         if(classToApply === 'correct') {
-            incrementScore(SCORE_POINTS);
+            incrementScore(TALLIED_SCORE);
         }
 
         selectedAnswer.parentElement.classList.add[classToApply];
