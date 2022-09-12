@@ -49,7 +49,7 @@ let questions = [
 const TALLIED_SCORE = 100;
 const QUESTION_MAX = 4;
 
-commenceGame = () => {
+startGame = () => { 
     questionCounter = 0;
     score = 0;
     availableQuestions = [...questions];
@@ -124,4 +124,4 @@ function updateTimer(){
     time--
 }
 
-commenceGame()
+startGame()
