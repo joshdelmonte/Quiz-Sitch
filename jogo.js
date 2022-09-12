@@ -24,7 +24,7 @@ let questions = [
         choice1: "Allows us to look through it",
         choice2: "Look pretty",
         choice3: "Access the interior API",
-        choice4: "Represents a window containing a DOM document",
+        choice4: "Represents a windoor",
         answer: 3,
     },
     {
@@ -57,7 +57,7 @@ startGame = () => {
 }
 // accessing local storage
 getNewQuestion = () => {
-    if (availableQuestions.length === 0 || questionCounter > QUESTION_MAX) {
+    if(availableQuestions.length === 0 || questionCounter > QUESTION_MAX) {
         localStorage.setItem('mostRecentScore', score);
 
         return window.location.assign('./end.html')
@@ -68,7 +68,7 @@ getNewQuestion = () => {
     progressBarFull.style.width = `${(questionCounter/QUESTION_MAX) * 100}%`;
 
     const questionsIndex = Math.floor(Math.random() * availableQuestions.length);
-    currentQuestion = availableQuestions(questionsIndex) ;
+    currentQuestion = availableQuestions[questionsIndex];
     question.innerText = currentQuestion.question;
 
     choices.forEach(choice => {
@@ -87,15 +87,15 @@ choices.forEach(choice => {
 
         acceptedAnswer = false;
         const selectedChoice = e.target;
-        const selectedAnswer = selectedChoice.dataset('number');
+        const selectedAnswer = selectedChoice.dataset['number'];
 
-        let classToApply = selectedAnswer == currentQuestion.answer? 'correct': 'incorrect'
+        let classToApply = selectedAnswer == currentQuestion.answer ? 'correct': 'incorrect'
 
         if(classToApply === 'correct') {
             incrementScore(SCORE_POINTS);
         }
 
-        selectedAnswer.parentElement.classList.add(classToApply);
+        selectedAnswer.parentElement.classList.add[classToApply];
 
         setTimeout(() => {
             selectedChoice.parentElement.classList.remove(classToApply);
