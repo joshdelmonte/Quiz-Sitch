@@ -1,18 +1,18 @@
 const question = document.querySelector('#question');
 const choices = Array.from(document.querySelectorAll('.choice-text'));
-const progressText = document.querySelector('.progressText');
+const progressText = document.querySelector('#progressText');
 const scoreText = document.querySelector('#score');
 const progressBarFull = document.querySelector('#progressBarFull');
 
-let currentPergunta = {};
+let currentQuestion = {};
 let acceptedAnswer = true;
 let score = 0;
-let perguntaCounter = 0
-let availablePerguntas = []
+let questionCounter = 0
+let availableQuestions = []
 // setting questions to cycle through
-let perguntas = [
+let questions = [
     {
-        pergunta: "This thing all things devours. Birds, beasts, trees, flowers. Gnaws Iron bites steal, and grinds hard stones to meal. What am I?",
+        question: "This thing all things devours. Birds, beasts, trees, flowers. Gnaws Iron bites steal, and grinds hard stones to meal. What am I?",
         choice1: "light",
         choice2: "water",
         choice3: "time",
@@ -20,7 +20,7 @@ let perguntas = [
         answer: 3, 
     },
     {
-        pergunta: "What does a 'Window' interface do?",
+        question: "What does a 'Window' interface do?",
         choice1: "Allows us to look through it",
         choice2: "Look pretty",
         choice3: "Access the interior API",
@@ -28,7 +28,7 @@ let perguntas = [
         answer: 3,
     },
     {
-        pergunta: "What type of value is a true/false statement?",
+        question: "What type of value is a true/false statement?",
         choice1: "string",
         choice2: "integer",
         choice3: "crime",
@@ -36,7 +36,7 @@ let perguntas = [
         answer: 4, 
     },
     {
-        pergunta: "Ceci n'est pas une pipe?",
+        question: "Ceci n'est pas une pipe?",
         choice1: "Oui",
         choice2: "Non",
         choice3: "Oui",
@@ -47,37 +47,36 @@ let perguntas = [
 ]
 
 const TALLIED_SCORE = 100;
-const PERGUNTA_MAX = 4;
+const QUESTION_MAX = 4;
 
 commenceGame = () => {
-    perguntaCounter = 0;
+    questionCounter = 0;
     score = 0;
-    availablePerguntas = [...perguntas];
-    getNewPergunta();
+    availableQuestions = [...questions];
+    getNewQuestion();
 }
 // accessing local storage
-getNewPergunta = () => {
-    if (availablePerguntas.length === 0 || perguntaCounter > PERGUNTA_MAX) {
+getNewQuestion = () => {
+    if (availableQuestions.length === 0 || questionCounter > QUESTION_MAX) {
         localStorage.setItem('mostRecentScore', score);
 
         return window.location.assign('./end.html')
     }
 
-    perguntaCounter++
-    // Problem below.
-    progressText.innerText = `Question ${perguntaCounter} of ${PERGUNTA_MAX}`;
-    progressBarFull.style.width = `${(perguntaCounter/PERGUNTA_MAX) * 100}%`;
+    questionCounter++
+    progressText.innerText = `Question ${questionCounter} of ${QUESTION_MAX}`;
+    progressBarFull.style.width = `${(questionCounter/QUESTION_MAX) * 100}%`;
 
-    const perguntasIndex = Math.floor(Math.random() * availablePerguntas.length);
-    currentPergunta = availablePerguntas(perguntasIndex) ;
-    pergunta.innerText = currentPergunta.pergunta;
+    const questionsIndex = Math.floor(Math.random() * availableQuestions.length);
+    currentQuestion = availableQuestions(questionsIndex) ;
+    question.innerText = currentQuestion.question;
 
     choices.forEach(choice => {
         const number = choice.dataset['number'];
-        choice.innerText = currentPergunta['choice' + number] ;
+        choice.innerText = currentQuestion['choice' + number] ;
     }) 
 
-    availablePerguntas.splice(perguntasIndex, 1);
+    availableQuestions.splice(questionsIndex, 1);
 
     acceptedAnswer = true
 }
@@ -90,7 +89,7 @@ choices.forEach(choice => {
         const selectedChoice = e.target;
         const selectedAnswer = selectedChoice.dataset('number');
 
-        let classToApply = selectedAnswer == currentPergunta.answer? 'correct': 'incorrect'
+        let classToApply = selectedAnswer == currentQuestion.answer? 'correct': 'incorrect'
 
         if(classToApply === 'correct') {
             incrementScore(SCORE_POINTS);
@@ -100,7 +99,7 @@ choices.forEach(choice => {
 
         setTimeout(() => {
             selectedChoice.parentElement.classList.remove(classToApply);
-            getNewPergunta()
+            getNewQuestion()
             
         }, 1000)
     })
@@ -109,6 +108,20 @@ choices.forEach(choice => {
 incrementScore = num => {
     score +=num
     scoreText.innerText = score
+}
+
+const startTime = 2 ;
+let time = startTime * 60;
+
+const count = document.getElementById("countdownTimer")
+setInterval(updateTimer, 1000)
+function updateTimer(){
+    const minutes = Math.floor(time/60)
+    let seconds = time % 60;
+
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    count.innerHTML = `${minutes}:${seconds}`
+    time--
 }
 
 commenceGame()

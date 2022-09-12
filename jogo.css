@@ -2,6 +2,11 @@ body{
     color: #fff;
 }
 
+.countdownTimer{
+    text-align: center;
+    font-size: 80rem;
+} 
+
 .objectivum-arbitrium {
     display: flex;
     margin-bottom: 0.8rem;
@@ -41,6 +46,7 @@ body{
     display: flex;
     justify-content: space-between;
 }
+
 
 .hud-prefix {
     text-align: center;
