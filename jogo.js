@@ -122,6 +122,10 @@ function updateTimer(){
     seconds = seconds < 10 ? '0' + seconds : seconds;
     count.innerHTML = `${minutes}:${seconds}`
     time--
+
+    if (!acceptedAnswer) {
+        time - (seconds * 15)
+    }
 }
 
 startGame()
